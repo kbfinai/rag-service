@@ -5,7 +5,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from rag_service.api.routes import auth, health, ingest, query
+from rag_service.api.routes import admin, auth, health, ingest, permissions, query
 from rag_service.core.config import get_settings
 from rag_service.core.logging import get_logger, setup_logging
 from rag_service.db.postgres import init_session_factory
@@ -59,6 +59,8 @@ def create_app() -> FastAPI:
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(query.router, prefix="/api/v1")
     app.include_router(ingest.router, prefix="/api/v1")
+    app.include_router(permissions.router, prefix="/api/v1")
+    app.include_router(admin.router, prefix="/api/v1")
 
     return app
 

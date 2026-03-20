@@ -1,3 +1,5 @@
+"""Legacy EmbeddingService for backwards compatibility."""
+
 from openai import AsyncOpenAI
 
 from rag_service.core.config import Settings, get_settings
@@ -7,6 +9,12 @@ logger = get_logger(__name__)
 
 
 class EmbeddingService:
+    """Legacy embedding service using OpenAI.
+
+    This class is kept for backwards compatibility.
+    For new code, use EmbeddingProviderFactory to create providers.
+    """
+
     def __init__(self, settings: Settings | None = None):
         self.settings = settings or get_settings()
         self.client = AsyncOpenAI(api_key=self.settings.openai_api_key)
